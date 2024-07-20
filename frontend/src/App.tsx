@@ -1,7 +1,9 @@
 import { useRoutes } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import Home from "./pages/Home";
-import Auth from "./pages/Auth";
+
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 
 const Main = () => {
   const routes = useRoutes([
@@ -11,7 +13,11 @@ const Main = () => {
     },
     {
       path: "/",
-      element: <Auth />,
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Register />,
     },
   ]);
   return routes;
