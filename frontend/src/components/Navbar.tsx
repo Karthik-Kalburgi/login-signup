@@ -4,7 +4,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Login from "@/pages/Auth/Login";
+
+import Signin from "@/pages/Auth/Signin";
+import Signup from "@/pages/Auth/Signup";
 
 
 const Navbar = () => {
@@ -38,13 +40,13 @@ const Navbar = () => {
           
           <Popover>
   <PopoverTrigger className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">Join Modulo</PopoverTrigger>
-  <PopoverContent><Tabs defaultValue="account" className="w-[400px]">
+  <PopoverContent><Tabs defaultValue="login" className="">
   <TabsList>
-    <TabsTrigger value="account">Sign In</TabsTrigger>
-    <TabsTrigger value="password">Sign Up</TabsTrigger>
+    <TabsTrigger value="login">Sign In</TabsTrigger>
+    <TabsTrigger value="register">Sign Up</TabsTrigger>
   </TabsList>
-  <TabsContent value="account"><Login></Login></TabsContent>
-  <TabsContent value="password">Change your password here.</TabsContent>
+  <TabsContent value="login"><Signin/></TabsContent>
+  <TabsContent value="register"><Signup/></TabsContent>
 </Tabs>
 </PopoverContent>
 </Popover>
