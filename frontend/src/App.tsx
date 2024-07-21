@@ -8,7 +8,7 @@ import Register from "./pages/Auth/Register";
 const Main = () => {
   const routes = useRoutes([
     {
-      path: "/auth",
+      path: "/home",
       element: <Home />,
     },
     {
