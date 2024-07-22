@@ -1,0 +1,90 @@
+.header-container {
+    padding: 2rem;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .content-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .content-item.left {
+    flex-direction: row;
+  }
+  
+  .content-item.right {
+    flex-direction: row-reverse;
+  }
+  
+  .content-item.in-view {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .image {
+    width: 880px; /* Enlarged size */
+    height: 680px; /* Enlarged size */
+    object-fit: cover;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .image:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+  }
+  
+  .description {
+    flex: 1;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s ease;
+  }
+  
+  .description p {
+    margin: 0;
+    color: #333;
+  }
+  
+  .description .title {
+    font-size: 2rem; /* Increased font size for title */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .description .description-text {
+    font-size: 1.5rem; /* Increased font size for description */
+  }
+  
+  .content-item.in-view .description {
+    transform: scale(1.05); /* Slightly enlarge the description when in view */
+  }
+  
+  .shop-now-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .shop-now-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+  }
+  
