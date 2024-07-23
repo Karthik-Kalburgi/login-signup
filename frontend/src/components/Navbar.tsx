@@ -18,15 +18,13 @@ const Navbar = () => {
             src="/logo.jpeg"
             alt="Peerlist logo"
             className=" p-1 w-[120px] h-[50px]"
-          />
+          /> 
        
         </div>
         <span className="text-muted-foreground"></span>
         {[
           "Home",
           "About Us",
-          "Franchises",
-          "Blogs",
           "Pre-built Wardrobes",
           "Build your Own Wardrobe",
         ].map((item, i) => (
@@ -54,6 +52,9 @@ const Navbar = () => {
        
         <button className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
           Virtual Tour
+        </button>
+        <button className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
+          Call For Expert
         </button>
       </div>
     </nav>

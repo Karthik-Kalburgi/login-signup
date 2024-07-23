@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <div className="header-container">
       <div className='w-[100%] h-[100%] relative '>
-        <h1 className="text-4xl font-bold text-center mb-8 blur-[2px]">Welcome to Our MODULO Designs</h1>
+        
         <div className='absolute w-[100%] h-[100%] inset-0 p-3'></div>
       </div>
       <p className="text-lg text-center mb-8">Scroll down to see our designs with descriptions.</p>
