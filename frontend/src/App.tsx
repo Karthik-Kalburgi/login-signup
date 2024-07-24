@@ -8,11 +8,11 @@ import Register from "./pages/Auth/Register";
 const Main = () => {
   const routes = useRoutes([
     {
-      path: "/home",
+      path: "/",
       element: <Home />,
     },
     {
-      path: "/",
+      path: "/login",
       element: <Login />,
     },
     {

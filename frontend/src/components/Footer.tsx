@@ -5,10 +5,10 @@ import { FaPhone } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#333333] text-white py-8 ">
+    <footer className="bg-[#333333] text-white scroll-py-10 ">
 
       <div className="container mx-auto px-4 flex flex-wrap justify-between">
-      <div className="flex-center flex-col gap-2 ">
+      <div className="flex-center flex-col gap-5 ">
         <img 
             src="/logo.jpeg"
             alt="MODULO Logo"
@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4 mt-8 border-t border-zinc-700 pt-4 flex flex-wrap justify-between items-center">
+      <div className="container mx-auto px-4 mt-8 border-t border-zinc-700 pt-1 flex flex-wrap justify-between items-center">
         <p className="text-sm">
           &copy; 2024 All rights reserved | This Website is Maintained By MODULO.COM ||
         
