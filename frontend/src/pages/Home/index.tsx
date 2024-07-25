@@ -1,14 +1,17 @@
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Header from "@/components/ui/Header";
+import Footer from "@/components/FooterTwo";
+import Main from "@/components/Main";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="max-h-screen min-h-screen flex flex-col justify-between">
       <Navbar />
       {/* <Header /> */}
-
-      <Footer />
+      
+      <Main/>
+      {/* <Footer /> */}
+      <Footer/>
     </div>
   );
 };

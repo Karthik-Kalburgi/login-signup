@@ -1,4 +1,5 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+
 const SocialMedia = () => {
   const iconStyle = `h-5 w-5`;
   const icons = [
@@ -23,8 +24,9 @@ const SocialMedia = () => {
       icon: <FaLinkedin className={iconStyle}/>,
     },
   ];
+
   return (
-    <div className="flex-center gap-2 ">
+    <div className="flex-center gap-3">
       {icons.map((item, i) => (
         <a target="_blank" className="" href={item.path} key={i}>
           {item.icon}

@@ -6,6 +6,7 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 
 const Main = () => {
+
   const routes = useRoutes([
     {
       path: "/",
@@ -20,6 +21,7 @@ const Main = () => {
       element: <Register />,
     },
   ]);
+  
   return routes;
 };
 

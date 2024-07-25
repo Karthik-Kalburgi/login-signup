@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
   Card,
@@ -99,7 +98,7 @@ function Signin() {
 
         {inputFields.map((item, index) => (
           <div  key={item.name} className="space-y-1">
-            <Label   htmlFor={item.name}>{item.name}</Label>
+            <Label htmlFor={item.name}>{item.name}</Label>
             <Input 
              name={item.name.toLowerCase().replace(" ", "")}
             id={item.name}  type={item.type} placeholder={item.name}onChange={handleInputChange} />

@@ -2,7 +2,6 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
   Card,
