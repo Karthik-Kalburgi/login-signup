@@ -1,6 +1,6 @@
 // import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/FooterTwo";
+import Footer from "@/components/Footer";
 import Main from "@/components/Main";
 
 const Home = () => {
