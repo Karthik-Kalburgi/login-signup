@@ -69,16 +69,16 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-center min-w-screen min-h-screen">
-      <div className="w-1/2"></div>
-      <div className="w-1/2 flex-center">
+   
+    
+      
         <form
           onSubmit={onRegister}
-          className="px-5 py-20 w-[400px] flex-center flex-col bg-gray-500 gap-4 border-2 border-slate-500 rounded-xl  "
+          className="flex flex-col bg-gray-500 gap-4 border-2 border-slate-500 rounded-xl"
         >
           {inputFields.map((item, index) => (
-            <div key={index} className="flex flex-col gap-1">
-              <div className="">{item.name}:</div>
+            <div key={index} className="flex flex-col gap-1 w-[200px]">
+              
               <Input
                 name={item.name.toLowerCase().replace(" ", "")} // Convert name to corresponding state key
                 placeholder={item.placeholder}
@@ -88,7 +88,7 @@ const Login = () => {
             </div>
           ))}
           <Button>Sign In</Button>
-          <div className="flex items-center gap-1">
+          <div className="flex items-start  gap-1  ">
             Not a User?{" "}
             <span
               onClick={() => {
@@ -100,8 +100,8 @@ const Login = () => {
             </span>
           </div>
         </form>
-      </div>
-    </div>
+     
+    
   );
 };
 

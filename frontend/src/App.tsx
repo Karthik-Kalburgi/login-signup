@@ -6,13 +6,14 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 
 const Main = () => {
+
   const routes = useRoutes([
     {
-      path: "/home",
+      path: "/",
       element: <Home />,
     },
     {
-      path: "/",
+      path: "/login",
       element: <Login />,
     },
     {
@@ -20,6 +21,7 @@ const Main = () => {
       element: <Register />,
     },
   ]);
+  
   return routes;
 };
 
