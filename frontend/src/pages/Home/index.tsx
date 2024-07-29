@@ -5,10 +5,9 @@ import Main from "@/components/Main";
 
 const Home = () => {
   return (
-    <div className="max-h-screen min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen max-h-screen justify-between flex flex-col">
       <Navbar />
       {/* <Header /> */}
-      
       <Main/>
       {/* <Footer /> */}
       <Footer/>

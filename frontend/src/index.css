@@ -68,10 +68,6 @@
   }
 }
 
-body{
-  background-color: rgb(205, 188, 191);
-}
-
 .flex-center {
   display: flex;
   justify-content: center;
