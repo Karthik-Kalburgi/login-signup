@@ -69,39 +69,33 @@ const Login = () => {
   };
 
   return (
-   
-    
-      
-        <form
-          onSubmit={onRegister}
-          className="flex flex-col bg-gray-500 gap-4 border-2 border-slate-500 rounded-xl"
+    <form
+      onSubmit={onRegister}
+      className="flex flex-col bg-gray-500 gap-4 border-2 border-slate-500 rounded-xl"
+    >
+      {inputFields.map((item, index) => (
+        <div key={index} className="flex flex-col gap-1 w-[200px]">
+          <Input
+            name={item.name.toLowerCase().replace(" ", "")} // Convert name to corresponding state key
+            placeholder={item.placeholder}
+            type={item.type}
+            onChange={handleInputChange}
+          />
+        </div>
+      ))}
+      <Button>Sign In</Button>
+      <div className="flex items-start  gap-1  ">
+        Not a User?{" "}
+        <span
+          onClick={() => {
+            navigate({ pathname: `/signup` });
+          }}
+          className="cursor-pointer hover:underline"
         >
-          {inputFields.map((item, index) => (
-            <div key={index} className="flex flex-col gap-1 w-[200px]">
-              
-              <Input
-                name={item.name.toLowerCase().replace(" ", "")} // Convert name to corresponding state key
-                placeholder={item.placeholder}
-                type={item.type}
-                onChange={handleInputChange}
-              />
-            </div>
-          ))}
-          <Button>Sign In</Button>
-          <div className="flex items-start  gap-1  ">
-            Not a User?{" "}
-            <span
-              onClick={() => {
-                navigate({ pathname: `/signup` });
-              }}
-              className="cursor-pointer hover:underline"
-            >
-              Register
-            </span>
-          </div>
-        </form>
-     
-    
+          Register
+        </span>
+      </div>
+    </form>
   );
 };
 

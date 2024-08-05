@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 const dbConnection = () => {
+  const DBuri = process.env.MONGO_URI;
+  const DBname = process.env.MONGO_URI.split(`/`)[3].split("?")[0]
   mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(DBuri)
     .then(() => {
-      console.log("Connected to DB -", process.env.MONGO_URI.split(`/`)[3]);
+      console.log("Connected to DB -", DBname);
     })
     .catch((err) => {
       console.log("DB connected failed ->", err);
