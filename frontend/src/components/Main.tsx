@@ -12,9 +12,9 @@ const Main = () => {
   ];
 
   return (
-    <div className="h-full grid md:grid-cols-3 px-5 py-3 md:py-0">
+    <div className="h-full grid md:grid-cols-3 px-5 py-3 md:py-0 flex-1">
       <div className="h-full md:col-span-2">
-        <ImagesSlider className="h-[30rem]" images={images}>
+        <ImagesSlider className="" images={images}>
           <motion.div
             initial={{
               opacity: 0,
