@@ -1,11 +1,10 @@
 import { IoLocation } from "react-icons/io5";
 import SocialMedia from "./SocialMedia";
-import { HiOutlineMail } from "react-icons/hi";
 import { FaPhone } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#333333] text-white py-2">
+    <footer className="bg-[#333333] text-white py-1">
       <div className="h-[90%] container mx-auto px-4 flex flex-wrap justify-between items-center">
         <div className="w-full sm:w-auto flex flex-col justify-center items-center sm:items-center mb-4 sm:mb-0">
           <img 
@@ -25,7 +24,6 @@ const Footer = () => {
           <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
             {[{location:"#40 August House Behind Pai Hotel J.C Nagar Bailapanavvar Nagar Hubballi Karnataka 580-029", phone:"+91 903-594-6002"},{
             location:" #212 Bellary Rd Near Renault Showroom Sadashiva Nagar Armane Nagar Bengaluru Karnataka 560-080", phone:"++91 962-074-6382",
-
             }].map((item, index) => (
                 <div key={index} className="flex flex-col gap-1">
                 <p className="mb-2 text-[14px] sm:text-[10px] flex items-center gap-1">
@@ -39,7 +37,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="h-[10%] container mx-auto px-4 border-t border-zinc-700 flex flex-wrap justify-around items-center">
+      <div className="h-[10%] container mx-auto px-4 py-1 border-t border-zinc-700 flex flex-wrap justify-around items-center">
         <p className="text-[10px] sm:text-[12px] text-center sm:text-left">
           &copy; 2024 All rights reserved | This Website is Maintained By MODULO.COM ||
         </p>

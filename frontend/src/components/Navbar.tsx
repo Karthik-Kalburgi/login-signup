@@ -7,28 +7,39 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import Signin from "@/pages/Auth/Signin";
 import Signup from "@/pages/Auth/Signup";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="flex items-center justify-between p-2 border-b border-border bg-background">
       <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 ml-3">
           <img
             src="/logo.jpeg"
             alt="Peerlist logo"
             className=" p-1 w-[120px] h-[50px]"
           />
         </div>
-        <span className="text-muted-foreground"></span>
-        {[
-          "Home",
-          "About Us",
-          "Pre-built Wardrobes",
-        ].map((item, i) => (
-          <a key={i} href="#" className="text-foreground hover:text-primary">
-            {item}
-          </a>
-        ))}
+        <div className="md:flex items-center justify-center gap-4 hidden">
+          {[
+            { name: "Home", path: "/" },
+            { name: "About Us", path: "/about" },
+            { name: "Pre-built Wardrobes", path: "/prebuilt" },
+          ].map((item, i) => (
+            <a
+              onClick={() => {
+                navigate(item.path);
+              }}
+              key={i}
+              href="#"
+              className="text-foreground hover:text-primary"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
       </div>
       <div className="flex items-center space-x-4">
         <Popover>
@@ -49,11 +60,11 @@ const Navbar = () => {
               </TabsContent>
             </Tabs>
           </PopoverContent>
-        </Popover>        
-        <button className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
+        </Popover>
+        <button className="hidden md:flex px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
           Virtual Tour
         </button>
-        <button className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
+        <button className="hidden md:flex px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
           Call For Expert
         </button>
       </div>
