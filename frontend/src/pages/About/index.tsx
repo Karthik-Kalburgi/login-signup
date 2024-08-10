@@ -74,7 +74,7 @@ const About = () => {
         </div>
       </div>
       <StickyScroll
-        className="h-full md:col-span-3 md:w-full w-[500px]"
+        className="md:col-span-3 md:w-full w-[500px] h-[550px] 3xl:h-[700px]"
         content={content}
       />
     </div>

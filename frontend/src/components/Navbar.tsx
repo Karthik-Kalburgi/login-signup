@@ -7,10 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import Signin from "@/pages/Auth/Signin";
 import Signup from "@/pages/Auth/Signup";
+import { useUser } from "@/states/UserState";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, clearUser } = useUser();
 
   return (
     <nav className="flex items-center justify-between p-2 border-b border-border bg-background">
@@ -42,25 +44,34 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center space-x-4">
-        <Popover>
-          <PopoverTrigger className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
-            Join Modulo
-          </PopoverTrigger>
-          <PopoverContent>
-            <Tabs defaultValue="login" className="">
-              <TabsList>
-                <TabsTrigger value="login">Sign In</TabsTrigger>
-                <TabsTrigger value="register">Sign Up</TabsTrigger>
-              </TabsList>
-              <TabsContent value="login">
-                <Signin />
-              </TabsContent>
-              <TabsContent value="register">
-                <Signup />
-              </TabsContent>
-            </Tabs>
-          </PopoverContent>
-        </Popover>
+        {user._id ? (
+          <button
+            onClick={() => clearUser()}
+            className="hidden md:flex px-4 py-2 text-primary-foreground bg-destructive hover:bg-destructive/90 hover:text-black rounded-lg"
+          >
+            Signout
+          </button>
+        ) : (
+          <Popover>
+            <PopoverTrigger className="px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
+              Join Modulo
+            </PopoverTrigger>
+            <PopoverContent>
+              <Tabs defaultValue="login" className="">
+                <TabsList>
+                  <TabsTrigger value="login">Sign In</TabsTrigger>
+                  <TabsTrigger value="register">Sign Up</TabsTrigger>
+                </TabsList>
+                <TabsContent value="login">
+                  <Signin />
+                </TabsContent>
+                <TabsContent value="register">
+                  <Signup />
+                </TabsContent>
+              </Tabs>
+            </PopoverContent>
+          </Popover>
+        )}
         <button className="hidden md:flex px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/80 rounded-lg">
           Virtual Tour
         </button>
