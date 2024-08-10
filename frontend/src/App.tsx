@@ -25,10 +25,7 @@ function App() {
     <Router>
       <div className="min-h-screen max-h-screen justify-between flex flex-col">
         <Navbar />
-        {/* <Header /> */}
         <Main />
-        {/* <Footer /> */}
-
         <Footer />
       </div>
     </Router>

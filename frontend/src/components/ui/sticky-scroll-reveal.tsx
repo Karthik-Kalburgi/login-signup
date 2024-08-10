@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 export const StickyScroll = ({
   content,
   contentClassName,
+  className,
 }: {
   content: {
     title: string;
@@ -14,6 +15,7 @@ export const StickyScroll = ({
     content?: React.ReactNode | any;
   }[];
   contentClassName?: string;
+  className?: string;
 }) => {
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef<any>(null);
@@ -60,10 +62,13 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="h-[30rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10 w-[500px] md:w-full"
+      className={cn(
+        "overflow-y-auto flex justify-around relative space-x-10 rounded-md p-10 min-w-[200px] min-h-[200px] max-h-[500px] md:w-full",
+        className
+      )}
       ref={ref}
     >
-      <div className="div relative flex items-start md:px-4">
+      <div className="div relative flex items-start md:px-4 3xl:px-1">
         <div className="max-w-2xl">
           {content.map((item, index) => (
             <div key={item.title + index} className="my-20">
@@ -74,7 +79,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold text-slate-100"
+                className="text-2xl 3xl:text-3xl font-bold text-slate-100"
               >
                 {item.title}
               </motion.h2>
@@ -85,7 +90,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-sm md:text-base text-slate-300 max-w-sm mt-10"
+                className="text-sm 3xl:text-lg md:text-base text-slate-300 max-w-sm mt-10"
               >
                 {item.description}
               </motion.p>

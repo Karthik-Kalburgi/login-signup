@@ -52,12 +52,12 @@ const content = [
 
 const About = () => {
   return (
-    <div className="flex-1  p-2 flex flex-col md:flex-row justify-between items-center w-full">
-      <div className="flex flex-1 flex-col w-[2/5] text-center p-4 space-y-2 ">
-        <h1 className="text-3xl font-semibold select-none hover:underline">
+    <div className="flex-1 p-5 grid md:grid-cols-5 grid-cols-1 gap-5 place-items-center w-full">
+      <div className="flex flex-1 flex-col text-center md:px-10 px-5 space-y-2 md:col-span-2">
+        <h1 className="text-3xl 2xl:text-4xl 3xl:text-4xl font-semibold select-none hover:underline">
           About
         </h1>
-        <div className="text-md text-gray-600 space-y-1 cursor-default">
+        <div className="text-base 2xl:text-lg 3xl:text-xl text-gray-600 space-y-1 cursor-default">
           <p>
             Modulo is a collaborative synergy of Architects, Interior designers
             and experts from the Hardware industry, formed to create high
@@ -73,9 +73,10 @@ const About = () => {
           </p>
         </div>
       </div>
-      <div className="p-3 w-[3/5]">
-        <StickyScroll content={content} />
-      </div>
+      <StickyScroll
+        className="h-full md:col-span-3 md:w-full w-[500px]"
+        content={content}
+      />
     </div>
   );
 };

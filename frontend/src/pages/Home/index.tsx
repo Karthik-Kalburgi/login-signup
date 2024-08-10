@@ -4,11 +4,7 @@ import Main from "@/components/Main";
 const Home = () => {
   return (
     <>
-      {/* <Navbar /> */}
-      {/* <Header /> */}
       <Main />
-      {/* <Footer /> */}
-      {/* <Footer /> */}
     </>
   );
 };
