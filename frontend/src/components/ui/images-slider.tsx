@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 
 export const ImagesSlider = ({
   images,
+  descriptions,
   children,
   overlay = true,
   overlayClassName,
@@ -13,6 +14,7 @@ export const ImagesSlider = ({
   direction = "up",
 }: {
   images: string[];
+  descriptions: string[];
   children: React.ReactNode;
   overlay?: React.ReactNode;
   overlayClassName?: string;
@@ -58,6 +60,7 @@ export const ImagesSlider = ({
       })
       .catch((error) => console.error("Failed to load images", error));
   };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
@@ -85,7 +88,7 @@ export const ImagesSlider = ({
 
   const slideVariants = {
     initial: {
-      scale: 0,
+      scale: 0.5,
       opacity: 0,
       rotateX: 45,
     },
@@ -145,6 +148,33 @@ export const ImagesSlider = ({
             className="image h-full w-full absolute inset-0 object-cover object-center"
           />
         </AnimatePresence>
+      )}
+
+      {areImagesLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center z-50">
+          <AnimatePresence>
+            {/* <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-white text-center p-4 bg-black/50 rounded"
+            >
+              {descriptions[currentIndex]}
+            </motion.div> */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              variants={slideVariants}
+              className="font-extrabold text-2xl text-center bg-clip-text text-transparent bg-gradient-to-br from-neutral-50 to-neutral-400 px-10 select-none"
+            >
+              {descriptions[currentIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
       )}
     </div>
   );

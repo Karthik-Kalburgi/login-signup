@@ -17,7 +17,7 @@ export const loginUser = async (req, res) => {
     if (!checkPassword)
       return res
         .status(404)
-        .json({ error: true, message: "Credentials dont match" });
+        .json({ error: true, message: "Credentials don't match" });
 
     // Removing Password from the Response
     const { password: removingPassword, ...rest } = checkUser._doc;
