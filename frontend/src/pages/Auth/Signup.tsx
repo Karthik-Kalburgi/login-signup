@@ -100,7 +100,7 @@ function Signup() {
           </div>
           <div></div>
           {inputFields.map((item, index) => (
-            <div key={item.name} className="space-y-1">
+            <div key={item.name + index} className="space-y-1">
               <Label htmlFor={item.name}>{item.name}</Label>
               <Input
                 name={item.name.toLowerCase().replace(" ", "")}
