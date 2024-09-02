@@ -14,6 +14,14 @@ dbConnection();
 app.use("/api/user/", userRouter);
 app.use("/api/wardrobe", wardrobeRouter);
 
+app.get("/", (req,res) => {
+  try {
+    res.status(200).json("Welcome to Modulo!")
+  } catch (error) {
+    res.status(404).json("ROOT_SERVER_ERROR")
+  }
+})
+
 app.listen(process.env.PORT, () => {
   console.log("Server is Running on PORT:", process.env.PORT);
 });
