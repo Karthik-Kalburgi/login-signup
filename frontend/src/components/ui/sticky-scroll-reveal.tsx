@@ -63,7 +63,7 @@ export const StickyScroll = ({
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
       className={cn(
-        "overflow-y-auto flex justify-around relative space-x-10 rounded-md p-10 min-w-[200px] min-h-[200px] max-h-[700px] md:w-full",
+        "overflow-y-auto flex justify-around relative space-x-10 rounded-md py-5 px-10",
         className
       )}
       ref={ref}
