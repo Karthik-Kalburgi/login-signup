@@ -28,7 +28,7 @@ const Main = () => {
 function App() {
   return (
     <Router>
-      <div className="md:min-h-screen max-h-screen justify-between flex flex-col">
+      <div className="min-h-screen md:max-h-screen justify-between flex flex-col">
         <Navbar />
         <Main />
         <Footer />
