@@ -39,6 +39,7 @@ export const ImagesSlider = ({
   };
 
   useEffect(() => {
+    console.log("Loaded Images -> ", loading);
     loadImages();
   }, []);
 
