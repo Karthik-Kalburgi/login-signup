@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const dbConnection = () => {
+const dbConnection = async() => {
   const DBuri = process.env.MONGO_URI;
   const DBname = process.env.MONGO_URI.split(`/`)[3].split("?")[0]
-  mongoose
+  await mongoose
     .connect(DBuri)
     .then(() => {
       console.log("Connected to DB -", DBname);
