@@ -2,20 +2,20 @@ import mongoose from "mongoose";
 
 const wardrobeSchema = new mongoose.Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
     cupboardLength: {
-      type: String,
-      required: true,
+      type: Boolean,
     },
-    mobile: {
-      type: String,
-      required: true,
+    cupboardWidth1: {
+      type: Number,
     },
-    email: {
-      type: String,
-      unique: true,
+    cupboardWidth2: {
+      type: Number,
     },
-    password: {
-      required: true,
+    material: {
       type: String,
     },
   },
