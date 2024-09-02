@@ -1,9 +1,11 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { ImagesSlider } from "@/components/ui/images-slider";
+import { useNavigate } from "react-router-dom";
 // import { motion } from "framer-motion";
 
 const Home = () => {
+  const navigate = useNavigate();
   const images: string[] = [
     "/images2/1.jpeg",
     "/images2/2.jpeg",
@@ -53,7 +55,14 @@ const Home = () => {
           variant="secondary"
           className="gap-2 bg-blue-950 text-white py-8 hover:text-black hover:bg-blue-900"
         >
-          <span className="text-2xl font-semibold">Design here</span>
+          <span
+            onClick={() => {
+              navigate("/emulator");
+            }}
+            className="text-2xl font-semibold"
+          >
+            Design here
+          </span>
           <FaArrowRight />
         </Button>
       </div>
