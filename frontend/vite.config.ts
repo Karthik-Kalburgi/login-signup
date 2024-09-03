@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "https://login-signup-ky62.onrender.com",
+      // "/api": "https://login-signup-ky62.onrender.com",
+      "/api": "http://localhost:3000",
     },
   },
   resolve: {

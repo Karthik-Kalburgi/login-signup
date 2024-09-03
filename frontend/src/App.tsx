@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Emulator from "./components/Emulator";
+import Emulator from "./pages/Emulator/Emulator";
 
 const Main = () => {
   const routes = useRoutes([

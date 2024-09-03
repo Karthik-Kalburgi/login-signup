@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import { FileUpload } from "./component/FileUpload";
 
 const Emulator: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -7,9 +8,7 @@ const Emulator: React.FC = () => {
   const [size, setSize] = useState<string | null>("");
   const [suggestion, setSuggestion] = useState<string | null>("");
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
+  const handleFileUpload = (file: File | null) => {
     if (file) {
       setImage(file);
       setShowOptions(true);
@@ -30,17 +29,14 @@ const Emulator: React.FC = () => {
     setSize(option);
   };
 
-  const options = ["6m", "7m", "8m"];
+  const options = ["4ft", "5ft", "6ft", "7ft"];
 
   return (
     <div className="flex justify-center items-center">
       {!image && (
-        <input
-          type="file"
-          capture="environment"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
+        <div>
+          <FileUpload onChange={handleFileUpload} />
+        </div>
       )}
       {showOptions && (
         <div className="flex flex-col gap-10">
@@ -50,7 +46,7 @@ const Emulator: React.FC = () => {
           <p>Your Suggested Size of the Wardrobe is {suggestion}</p>
           <div className="flex justify-center items-center flex-col gap-5">
             <p>You are free to change the size here </p>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {options.map((option) => (
                 <Button
                   variant="default"
