@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Emulator from "./pages/Emulator/Emulator";
+import ArcWaveApp from "./pages/ArcWaveApp";
 
 const Main = () => {
   const routes = useRoutes([
@@ -19,6 +20,10 @@ const Main = () => {
     {
       path: "/emulator",
       element: <Emulator />,
+    },
+    {
+      path: "/app",
+      element: <ArcWaveApp />,
     },
   ]);
 

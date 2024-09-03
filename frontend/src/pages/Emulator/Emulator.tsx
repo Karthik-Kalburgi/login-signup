@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "./component/FileUpload";
+import { useNavigate } from "react-router-dom";
 
 const Emulator: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [showOptions, setShowOptions] = useState(false);
   const [size, setSize] = useState<string | null>("");
   const [suggestion, setSuggestion] = useState<string | null>("");
+  const navigate = useNavigate();
 
   const handleFileUpload = (file: File | null) => {
     if (file) {
@@ -60,7 +62,13 @@ const Emulator: React.FC = () => {
                 </Button>
               ))}
             </div>
-            <Button>Continue</Button>
+            <Button
+              onClick={() => {
+                navigate("/app");
+              }}
+            >
+              Continue
+            </Button>
           </div>
         </div>
       )}
