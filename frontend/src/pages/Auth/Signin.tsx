@@ -1,21 +1,15 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { ToastAction } from "@/components/ui/toast";
+import { useUser } from "@/states/UserState";
 
 type InputField = {
   name: string;
@@ -30,16 +24,14 @@ type FormValues = {
 
 function Signin() {
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const { setUser } = useUser();
   const inputFields: InputField[] = [
     {
-      
       name: "Email",
       type: "text",
       placeholder: "Enter Username/Email",
     },
     {
-      
       name: "Password",
       type: "password",
       placeholder: "Enter Password",
@@ -50,7 +42,6 @@ function Signin() {
     email: "",
     password: "",
   });
- 
 
   const onRegister = async (e: FormEvent) => {
     e.preventDefault();
@@ -67,11 +58,12 @@ function Signin() {
       return;
     }
 
+    setUser(res.data.user);
+
     toast({
       title: `${res.data.message}`,
       description: "You are a part of Modulo Family!",
     });
-  
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,26 +80,30 @@ function Signin() {
         </CardDescription>
       </CardHeader> */}
       <form onSubmit={onRegister}>
-      <CardContent className="space-y-2 p-2">
-        <div className="space-y-1 border-gray-400 border-2 p-2 rounded-xl">
-          <div className="flex-center text-sm gap-1">
-            <FcGoogle className="" size={20} />
-            <p className="font-semibold"> Continue with Google</p>
+        <CardContent className="space-y-2 p-2">
+          <div className="space-y-1 border-gray-400 border-2 p-2 rounded-xl">
+            <div className="flex-center text-sm gap-1">
+              <FcGoogle className="" size={20} />
+              <p className="font-semibold"> Continue with Google</p>
+            </div>
           </div>
-        </div>
 
-        {inputFields.map((item, index) => (
-          <div  key={item.name} className="space-y-1">
-            <Label htmlFor={item.name}>{item.name}</Label>
-            <Input 
-             name={item.name.toLowerCase().replace(" ", "")}
-            id={item.name}  type={item.type} placeholder={item.name}onChange={handleInputChange} />
-          </div>
-        ))}
-      </CardContent>
-      <CardFooter>
-        <Button type="submit">Sign In</Button>
-      </CardFooter>
+          {inputFields.map((item) => (
+            <div key={item.name} className="space-y-1">
+              <Label htmlFor={item.name}>{item.name}</Label>
+              <Input
+                name={item.name.toLowerCase().replace(" ", "")}
+                id={item.name}
+                type={item.type}
+                placeholder={item.name}
+                onChange={handleInputChange}
+              />
+            </div>
+          ))}
+        </CardContent>
+        <CardFooter>
+          <Button type="submit">Sign In</Button>
+        </CardFooter>
       </form>
     </Card>
   );
