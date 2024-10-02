@@ -30,6 +30,7 @@ const Layout: React.FC = () => {
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
   };
+  console.log(doorType);
 
   const handleRoomHeightChange = (height: number) => {
     setRoomHeight(height);
