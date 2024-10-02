@@ -42,6 +42,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       const newScene = new Scene(engine);
 
       newScene.clearColor = new Color4(0.9, 0.9, 0.9, 1.0);
+      console.log(colorTexture);
 
       const camera = new ArcRotateCamera(
         "camera",
