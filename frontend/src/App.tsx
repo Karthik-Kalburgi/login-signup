@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Emulator from "./pages/Emulator/Emulator";
+import Layout from "./pages/app/Layout";
 import ArcWaveApp from "./pages/ArcWaveApp";
 
 const Main = () => {
@@ -19,7 +19,7 @@ const Main = () => {
     },
     {
       path: "/emulator",
-      element: <Emulator />,
+      element: <Layout />,
     },
     {
       path: "/app",
