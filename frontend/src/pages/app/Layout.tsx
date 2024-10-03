@@ -152,7 +152,7 @@ const Layout: React.FC = () => {
               : "bg-gray-200"
           }`}
         >
-          Openable Door
+          Sliding Door
         </button>
         <button
           onClick={() => {
@@ -165,7 +165,7 @@ const Layout: React.FC = () => {
               : "bg-gray-200"
           }`}
         >
-          Sliding Door
+          Openable Door
         </button>
       </div>
       <div className="flex space-x-4 mb-4">
