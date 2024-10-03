@@ -14,7 +14,8 @@ const Layout: React.FC = () => {
   const INITIAL_COLOR = "";
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
-  const [roomheight, setRoomHeight] = useState<number>(3000);
+  const [roomheight, setRoomHeight] = useState<number>(2900);
+  const [aroomheight, asetRoomHeight] = useState<number>(2900);
   const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
   const [selectedColor, setSelectedColor] = useState<string>(INITIAL_COLOR);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -32,7 +33,13 @@ const Layout: React.FC = () => {
   };
 
   const handleRoomHeightChange = (height: number) => {
-    setRoomHeight(height);
+    if (height === 2100) {
+      setRoomHeight(2900);
+      asetRoomHeight(2100);
+    } else if (height === 2400) {
+      setRoomHeight(2600);
+      asetRoomHeight(2400);
+    }
   };
 
   const handleLayoutImageClick = (modelNumber: string) => {
@@ -62,7 +69,7 @@ const Layout: React.FC = () => {
         {[
           { name: "Room Width", option: "roomWidth" },
           { name: "Layout", option: "layout" },
-          { name: "Room Height", option: "roomheight" },
+          { name: "Object Height", option: "roomheight" },
           { name: "Color", option: "color" },
         ].map((menuItem) => (
           <h3
@@ -105,14 +112,14 @@ const Layout: React.FC = () => {
 
   const HeightMenu: React.FC = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold mb-3">Select Room Height</h3>
+      <h3 className="text-xl font-semibold mb-3">Select Object Height</h3>
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-300 flex flex-wrap gap-4">
         {[2100, 2400].map((height) => (
           <button
             key={height}
             onClick={() => handleRoomHeightChange(height)}
             className={`p-3 rounded-lg border transition duration-300 ease-in-out ${
-              roomheight === height
+              aroomheight === height
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-gray-800"
             } hover:bg-blue-600`}

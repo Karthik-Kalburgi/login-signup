@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 interface LeftProps {
-  onLayoutSelect: (modelNumber: number) => void;
+  onLayoutSelect: (modelNumber: string) => void;
 }
 
-const Left: React.FC<LeftProps> = ({}) => {
+const Left: React.FC<LeftProps> = ({ onLayoutSelect }) => {
   const sizes = ["4_4_6", "4_6_6", "4_9", "6_6", "9_9", "12_6", "12_12"];
   const [selectedSize, setSelectedSize] = useState<string>("");
 
   const handleButtonClick = (size: string) => {
     setSelectedSize(size); // Update selected size
-    console.log(size);
+    onLayoutSelect(`SL${size}`); // Pass size in the format SL<number> immediately
   };
 
   return (
@@ -20,12 +20,12 @@ const Left: React.FC<LeftProps> = ({}) => {
         {sizes.map((size) => (
           <button
             key={size}
-            onClick={() => handleButtonClick(size)}
             className={`p-3 rounded-lg border transition duration-300 ease-in-out ${
               selectedSize === size
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-gray-800"
             } hover:bg-blue-600`}
+            onClick={() => handleButtonClick(size)}
           >
             <span>{size}</span>
           </button>
