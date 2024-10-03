@@ -10,7 +10,7 @@ import Right from "./Cupboard/Right"; // Openable right component
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2400;
-  const INITIAL_LAYOUT = "11650";
+  const INITIAL_LAYOUT = "OL1650";
   const INITIAL_COLOR = "";
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
     setRoomHeight(height);
   };
 
-  const handleLayoutImageClick = (modelNumber: number) => {
+  const handleLayoutImageClick = (modelNumber: string) => {
     setLayout(`${modelNumber}`);
   };
 
