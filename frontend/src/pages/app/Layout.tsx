@@ -60,30 +60,19 @@ const Layout: React.FC = () => {
     <div className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-800">Customize Room</h2>
       <div className="flex flex-col space-y-2">
-        <h3
-          className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-          onClick={() => setActiveSection("roomWidth")}
-        >
-          Room Width
-        </h3>
-        <h3
-          className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-          onClick={() => setActiveSection("layout")}
-        >
-          Layout
-        </h3>
-        <h3
-          className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-          onClick={() => setActiveSection("roomheight")}
-        >
-          Height
-        </h3>
-        <h3
-          className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-          onClick={() => setActiveSection("color")}
-        >
-          Color
-        </h3>
+        {[
+          { name: "Room Width", option: "roomWidth" },
+          { name: "Layout", option: "layout" },
+          { name: "Room Height", option: "roomheight" },
+          { name: "Color", option: "color" },
+        ].map((menuItem) => (
+          <h3
+            className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
+            onClick={() => setActiveSection(menuItem.option)}
+          >
+            {menuItem.name}
+          </h3>
+        ))}
       </div>
     </div>
   );
