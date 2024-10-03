@@ -11,7 +11,6 @@ const Left: React.FC<LeftProps> = ({ onLayoutSelect }) => {
   const handleButtonClick = (size: number) => {
     setSelectedSize(size); // Update selected size
     onLayoutSelect(`OL${size}`); // Pass size in the format OL<number>
-    console.log(`OL${size}`);
   };
 
   return (

@@ -21,7 +21,7 @@ const Layout: React.FC = () => {
   const [currentColorSet, setCurrentColorSet] = useState<"lam" | "pu">("lam");
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [layoutPosition, setLayoutPosition] = useState<string | null>("left");
-  const [doorType, setDoorType] = useState<string | null>(null);
+
   const [selectedDoorType, setSelectedDoorType] = useState<string | null>(null);
   const [selectedLayoutPosition, setSelectedLayoutPosition] = useState<
     string | null
@@ -30,7 +30,6 @@ const Layout: React.FC = () => {
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
   };
-  console.log(doorType);
 
   const handleRoomHeightChange = (height: number) => {
     setRoomHeight(height);
@@ -137,7 +136,6 @@ const Layout: React.FC = () => {
       <div className="flex space-x-4 mb-4">
         <button
           onClick={() => {
-            setDoorType("openable");
             setSelectedDoorType("openable");
             setLayoutPosition("left"); // Optionally reset to left section
           }}
@@ -151,7 +149,6 @@ const Layout: React.FC = () => {
         </button>
         <button
           onClick={() => {
-            setDoorType("sliding");
             setSelectedDoorType("sliding");
             setLayoutPosition("left"); // Optionally reset to left section
           }}
