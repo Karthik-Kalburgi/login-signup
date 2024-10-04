@@ -1,11 +1,10 @@
-import { useRoutes } from "react-router-dom";
+import { useRoutes, useLocation } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Layout from "./pages/app/Layout";
-import ArcWaveApp from "./pages/ArcWaveApp";
 
 const Main = () => {
   const routes = useRoutes([
@@ -21,25 +20,33 @@ const Main = () => {
       path: "/emulator",
       element: <Layout />,
     },
-    {
-      path: "/app",
-      element: <ArcWaveApp />,
-    },
   ]);
 
   return routes;
 };
 
 function App() {
+  const location = useLocation();
+
+  // Check if the current route is "/emulator"
+  const hideFooter = location.pathname === "/emulator";
+
+  return (
+    <div className="min-h-screen md:max-h-screen justify-between flex flex-col">
+      {/* Conditionally render the Navbar */}
+      <Navbar />
+      <Main />
+      {!hideFooter && <Footer />}
+    </div>
+  );
+}
+
+function WrappedApp() {
   return (
     <Router>
-      <div className="min-h-screen md:max-h-screen justify-between flex flex-col">
-        <Navbar />
-        <Main />
-        <Footer />
-      </div>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default WrappedApp;

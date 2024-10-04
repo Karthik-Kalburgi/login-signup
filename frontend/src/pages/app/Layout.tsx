@@ -73,6 +73,7 @@ const Layout: React.FC = () => {
           { name: "Color", option: "color" },
         ].map((menuItem) => (
           <h3
+            key={menuItem.name}
             className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
             onClick={() => setActiveSection(menuItem.option)}
           >
@@ -263,7 +264,7 @@ const Layout: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div className="flex flex-col md:flex-row h-[92vh]">
       <div className="flex-1 p-4 bg-gray-100 overflow-hidden">
         <BabylonScene
           roomWidth={roomWidth}

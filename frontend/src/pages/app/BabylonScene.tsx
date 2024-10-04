@@ -139,6 +139,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
             });
 
             setCurrentModel(model);
+
             console.log(modelFilename);
           }
         },
@@ -184,6 +185,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       "https://www.babylonjs-playground.com/textures/wood.jpg",
       scene
     );
+
     const floor = MeshBuilder.CreateGround(
       "floor",
       { width: roomWidth, height: roomDepth },
@@ -235,6 +237,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   };
 
   const handleToggleDoor = () => {
+    console.log(isOpen);
     if (isOpen) {
       // If currently open, close the door by prefixing 'C' to the filename
       const newFilename = `C${modelFilename}`; // Keep the model number part intact
