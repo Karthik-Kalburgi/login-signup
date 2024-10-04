@@ -83,7 +83,6 @@ const Layout: React.FC = () => {
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
       return;
-      return;
     }
     try {
       const res = await axios.post(`/api/wardrobe/save`, {
@@ -105,12 +104,8 @@ const Layout: React.FC = () => {
         title: `Checkout Saved!`,
         description: `Our Team will contact you shortly!`,
       });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log("CHECKOUT_ERROR", error.message);
-      } else {
-        console.log("An unexpected error occurred");
-      }
+    } catch (error: any) {
+      console.log("CHECKOUT_ERROR", error.message);
     }
   };
 

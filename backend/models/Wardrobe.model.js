@@ -8,7 +8,7 @@ const wardrobeSchema = new mongoose.Schema(
       ref: "User",
     },
     roomWidth: {
-      type: Boolean,
+      type: Number,
     },
     model: {
       type: String,

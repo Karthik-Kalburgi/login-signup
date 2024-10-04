@@ -9,6 +9,7 @@ export const saveToCart = async (req, res) => {
     const checkCartExists = await Wardrobe.findOne({ userId });
 
     if (!checkCartExists) {
+      console.log("Cart Doesnt Exist");
       const newCart = await Wardrobe.create({
         userId,
         roomWidth,
@@ -22,14 +23,18 @@ export const saveToCart = async (req, res) => {
     }
 
     // Update Cart if it Exists
+    console.log("Cart Updating");
     const updateCard = await Wardrobe.findOneAndUpdate({
       roomWidth,
       model,
       material,
     });
 
-    res.status(200).json({ error: false, message: "Cart Updated Success" });
+    res
+      .status(200)
+      .json({ error: false, updateCard, message: "Cart Updated Success" });
   } catch (error) {
+    console.log(error);
     res
       .status(404)
       .json({ message: "SERVER_ERROR_WARDROBE_SAVE", error: true });
