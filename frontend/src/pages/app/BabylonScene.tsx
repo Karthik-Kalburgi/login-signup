@@ -123,9 +123,8 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
 
             const scaleFactor = roomWidth / baseRoomWidth;
 
-            const fileName = modelFileName;
-            console.log("FIleName->", fileName);
-            const size = parseInt(fileName.match(/\d+/g).join("")); // Extracts all digits and joins them into a single string
+            const size = Number(modelFileName?.match(/\d+/g)?.join("") || "0");
+
             console.log("Size->", size);
 
             // Adjust rateOfChangeX with scale factor
