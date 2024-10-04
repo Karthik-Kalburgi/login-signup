@@ -8,7 +8,7 @@ import dbConnection from "./db/dbConnection.js";
 dotenv.config();
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://login-signup-ebon.vercel.app/"], // Add your front-end URLs
+  origin: ["http://localhost:5173", "https://login-signup-ebon.vercel.app"], // Add your front-end URLs
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // If you need to allow cookies with requests
 };
