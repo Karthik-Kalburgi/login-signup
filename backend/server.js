@@ -11,7 +11,7 @@ app.use(express.json());
 
 dbConnection();
 
-app.use("/api/user/", userRouter);
+app.use("/api/user", userRouter);
 app.use("/api/wardrobe", wardrobeRouter);
 
 app.get("/", (req, res) => {

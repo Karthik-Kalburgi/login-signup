@@ -3,17 +3,15 @@ import mongoose from "mongoose";
 const wardrobeSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: "User",
     },
-    cupboardLength: {
+    roomWidth: {
       type: Boolean,
     },
-    cupboardWidth1: {
-      type: Number,
-    },
-    cupboardWidth2: {
-      type: Number,
+    model: {
+      type: String,
     },
     material: {
       type: String,
