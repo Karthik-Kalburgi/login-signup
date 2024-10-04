@@ -74,6 +74,7 @@ const Layout: React.FC = () => {
 
   const colors = colorOptions[currentColorSet] || [];
 
+  // Image Upload Pending
   const handleCheckout = async () => {
     if (!user._id) {
       toast({

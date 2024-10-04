@@ -36,7 +36,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scene, setScene] = useState<Scene | null>(null);
   const [currentModel, setCurrentModel] = useState<AbstractMesh | null>(null);
-
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       const canvas = canvasRef.current;
       const engine = new Engine(canvas, true);
       const newScene = new Scene(engine);
-
       newScene.clearColor = new Color4(0.9, 0.9, 0.9, 1.0);
 
       const camera = new ArcRotateCamera(
@@ -125,16 +123,12 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
 
             const size = Number(modelFileName?.match(/\d+/g)?.join("") || "0");
 
-            console.log("Size->", size);
-
             // Adjust rateOfChangeX with scale factor
             const rateOfChangeX =
               (minRate +
                 ((size - minSize) * (maxRate - minRate)) /
                   (maxSize - minSize)) *
               scaleFactor;
-
-            console.log("Rate->", rateOfChangeX);
 
             model.position = new Vector3(
               layoutPosition == "left"
@@ -172,8 +166,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
             });
 
             setCurrentModel(model);
-
-            console.log(modelFileName);
           }
         },
         null,
@@ -270,7 +262,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   };
 
   const handleToggleDoor = () => {
-    console.log(isOpen);
     const closedFileName = `C${modelFileName}`; // Keep the model number part intact
     if (isOpen) {
       // If currently open, close the door by prefixing 'C' to the filename
