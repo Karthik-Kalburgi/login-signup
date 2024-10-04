@@ -2,12 +2,21 @@ import express from "express";
 import dotenv from "dotenv";
 import userRouter from "./routers/user.router.js";
 import wardrobeRouter from "./routers/wardrobe.router.js";
+import cors from "cors";
 
 import dbConnection from "./db/dbConnection.js";
 dotenv.config();
 
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://login-signup-ebon.vercel.app/"], // Add your front-end URLs
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // If you need to allow cookies with requests
+};
+
 const app = express();
 app.use(express.json());
+
+app.use(cors(corsOptions));
 
 dbConnection();
 

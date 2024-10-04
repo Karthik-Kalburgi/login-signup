@@ -85,7 +85,8 @@ const Layout: React.FC = () => {
       return;
     }
     try {
-      const res = await axios.post(`/api/wardrobe/save`, {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${API_URL}/api/wardrobe/save`, {
         userId: user._id,
         roomWidth,
         model: modelFileName,
