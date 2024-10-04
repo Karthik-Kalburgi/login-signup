@@ -5,7 +5,7 @@ interface RightProps {
 }
 
 const Right: React.FC<RightProps> = ({ onLayoutSelect }) => {
-  const sizes = [1650, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400];
+  const sizes = [1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400];
   const [selectedSize, setSelectedSize] = useState<number>(0);
 
   const handleButtonClick = (size: number) => {

@@ -20,14 +20,14 @@ import { useModel } from "@/states/ModelState";
 
 interface BabylonSceneProps {
   roomWidth: number;
-
+  layoutPosition: string | null;
   height: number;
   colorTexture: string;
 }
 
 const BabylonScene: React.FC<BabylonSceneProps> = ({
   roomWidth,
-
+  layoutPosition,
   height,
   colorTexture,
 }) => {
@@ -115,7 +115,37 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
           if (meshes.length > 0) {
             const model = meshes[0] as AbstractMesh;
 
-            model.position = new Vector3(900, 0, -300);
+            const minRate = 17;
+            const maxRate = 720;
+            const minSize = 1700;
+            const maxSize = 2400;
+            const baseRoomWidth = 2600;
+
+            const scaleFactor = roomWidth / baseRoomWidth;
+
+            const fileName = modelFileName;
+            console.log("FIleName->", fileName);
+            const size = parseInt(fileName.match(/\d+/g).join("")); // Extracts all digits and joins them into a single string
+            console.log("Size->", size);
+
+            // Adjust rateOfChangeX with scale factor
+            const rateOfChangeX =
+              (minRate +
+                ((size - minSize) * (maxRate - minRate)) /
+                  (maxSize - minSize)) *
+              scaleFactor;
+
+            console.log("Rate->", rateOfChangeX);
+
+            model.position = new Vector3(
+              layoutPosition == "left"
+                ? 1300
+                : layoutPosition == "right"
+                ? 450 + rateOfChangeX
+                : 900,
+              0,
+              -300
+            );
 
             const floorTexture = new Texture(
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ2OBtCyO9PKGxZtLENIe09f3kBsxPZezjSA&s",

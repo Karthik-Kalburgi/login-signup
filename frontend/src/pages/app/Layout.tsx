@@ -10,7 +10,7 @@ import Right from "./Cupboard/Right"; // Openable right component
 import { useModel } from "@/states/ModelState";
 
 const Layout: React.FC = () => {
-  const INITIAL_ROOM_WIDTH = 2400;
+  const INITIAL_ROOM_WIDTH = 2600;
 
   const INITIAL_COLOR = "";
 
@@ -92,7 +92,7 @@ const Layout: React.FC = () => {
     <div className="space-y-4">
       <h3 className="text-xl font-semibold mb-3">Select Room Width</h3>
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-300 flex flex-wrap gap-4">
-        {[2400, 3000, 3600].map((width) => (
+        {[2600, 3000, 3600, 4200].map((width) => (
           <button
             key={width}
             onClick={() => handleRoomWidthChange(width)}
@@ -102,7 +102,7 @@ const Layout: React.FC = () => {
                 : "bg-gray-200 text-gray-800"
             } hover:bg-blue-600`}
           >
-            {width / 300} ft
+            {Math.round(width / 300)} ft
           </button>
         ))}
       </div>
@@ -274,6 +274,7 @@ const Layout: React.FC = () => {
           roomWidth={roomWidth}
           height={roomheight}
           colorTexture={selectedColor}
+          layoutPosition={layoutPosition}
         />
       </div>
       <div className="w-full md:w-1/3 p-6 bg-white shadow-md rounded-lg flex flex-col space-y-6">
