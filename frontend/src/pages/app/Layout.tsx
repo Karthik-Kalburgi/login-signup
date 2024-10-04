@@ -8,13 +8,19 @@ import Left from "./Cupboard/Left"; // Openable door components
 import Middle from "./Cupboard/Middle";
 import Right from "./Cupboard/Right"; // Openable right component
 import { useModel } from "@/states/ModelState";
+import { ShoppingCart } from "lucide-react";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useUser } from "@/states/UserState";
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2600;
 
   const INITIAL_COLOR = "";
 
-  const { setModelFileName } = useModel();
+  const { setModelFileName, modelFileName } = useModel();
+  const { user } = useUser();
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
   const [roomheight, setRoomHeight] = useState<number>(2900);
@@ -30,6 +36,8 @@ const Layout: React.FC = () => {
   const [selectedLayoutPosition, setSelectedLayoutPosition] = useState<
     string | null
   >(null);
+
+  const { toast } = useToast();
 
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
@@ -66,25 +74,74 @@ const Layout: React.FC = () => {
 
   const colors = colorOptions[currentColorSet] || [];
 
+  const handleCheckout = async () => {
+    if (!user._id) {
+      toast({
+        title: `Checkout Failed`,
+        description: "Try Logging in before checking out",
+        variant: "destructive",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return;
+      return;
+    }
+    try {
+      const res = await axios.post(`/api/wardrobe/save`, {
+        userId: user._id,
+        roomWidth,
+        model: modelFileName,
+        material: selectedColor,
+      });
+      if (res.data.error) {
+        toast({
+          title: `${res.data.message}`,
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        return;
+      }
+
+      toast({
+        title: `Checkout Saved!`,
+        description: `Our Team will contact you shortly!`,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log("CHECKOUT_ERROR", error.message);
+      } else {
+        console.log("An unexpected error occurred");
+      }
+    }
+  };
+
   const Menu: React.FC = () => (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800">Customize Room</h2>
-      <div className="flex flex-col space-y-2">
-        {[
-          { name: "Room Width", option: "roomWidth" },
-          { name: "Layout", option: "layout" },
-          { name: "Object Height", option: "roomheight" },
-          { name: "Color", option: "color" },
-        ].map((menuItem) => (
-          <h3
-            key={menuItem.name}
-            className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-            onClick={() => setActiveSection(menuItem.option)}
-          >
-            {menuItem.name}
-          </h3>
-        ))}
+    <div className=" flex flex-col justify-between h-full items-center">
+      <div className="space-y-4 w-full">
+        <h2 className="text-2xl font-bold text-gray-800">Customize Room</h2>
+        <div className="flex flex-col space-y-2">
+          {[
+            { name: "Room Width", option: "roomWidth" },
+            { name: "Layout", option: "layout" },
+            { name: "Object Height", option: "roomheight" },
+            { name: "Color", option: "color" },
+          ].map((menuItem) => (
+            <h3
+              key={menuItem.name}
+              className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
+              onClick={() => setActiveSection(menuItem.option)}
+            >
+              {menuItem.name}
+            </h3>
+          ))}
+        </div>
       </div>
+      <button
+        onClick={handleCheckout}
+        className="text-xl font-semibold cursor-pointer bg-green-400 p-4 rounded-lg text-gray-700 hover:bg-green-300 transition flex justify-between items-center w-[80%]"
+      >
+        <p>Checkout</p>
+        <ShoppingCart />
+      </button>
     </div>
   );
 
