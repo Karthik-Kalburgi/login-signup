@@ -11,15 +11,15 @@ import { useModel } from "@/states/ModelState";
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2400;
-  const INITIAL_LAYOUT = "OL1650";
+
   const INITIAL_COLOR = "";
 
-  const { modelFileName, setModelFileName } = useModel();
+  const { setModelFileName } = useModel();
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
   const [roomheight, setRoomHeight] = useState<number>(2900);
   const [aroomheight, asetRoomHeight] = useState<number>(2900);
-  // const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
+
   const [selectedColor, setSelectedColor] = useState<string>(INITIAL_COLOR);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentColorSet, setCurrentColorSet] = useState<"lam" | "pu">("lam");
