@@ -7,16 +7,19 @@ import SRight from "./Cupboard/SRight"; // Ensure this import exists for the rig
 import Left from "./Cupboard/Left"; // Openable door components
 import Middle from "./Cupboard/Middle";
 import Right from "./Cupboard/Right"; // Openable right component
+import { useModel } from "@/states/ModelState";
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2400;
   const INITIAL_LAYOUT = "OL1650";
   const INITIAL_COLOR = "";
 
+  const { modelFileName, setModelFileName } = useModel();
+
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
   const [roomheight, setRoomHeight] = useState<number>(2900);
   const [aroomheight, asetRoomHeight] = useState<number>(2900);
-  const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
+  // const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
   const [selectedColor, setSelectedColor] = useState<string>(INITIAL_COLOR);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentColorSet, setCurrentColorSet] = useState<"lam" | "pu">("lam");
@@ -43,7 +46,8 @@ const Layout: React.FC = () => {
   };
 
   const handleLayoutImageClick = (modelNumber: string) => {
-    setLayout(`${modelNumber}`);
+    // setLayout(`${modelNumber}`);
+    setModelFileName(`${modelNumber}`);
   };
 
   const handleColorSetSelection = (colorSet: "lam" | "pu") => {
@@ -268,7 +272,6 @@ const Layout: React.FC = () => {
       <div className="flex-1 p-4 bg-gray-100 overflow-hidden">
         <BabylonScene
           roomWidth={roomWidth}
-          layout={layout}
           height={roomheight}
           colorTexture={selectedColor}
         />

@@ -16,25 +16,28 @@ import {
   PBRMaterial,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
+import { useModel } from "@/states/ModelState";
 
 interface BabylonSceneProps {
   roomWidth: number;
-  layout: string;
+
   height: number;
   colorTexture: string;
 }
 
 const BabylonScene: React.FC<BabylonSceneProps> = ({
   roomWidth,
-  layout,
+
   height,
   colorTexture,
 }) => {
+  const { setModelFileName, modelFileName } = useModel();
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scene, setScene] = useState<Scene | null>(null);
   const [currentModel, setCurrentModel] = useState<AbstractMesh | null>(null);
-  const [modelFilename, setModelFilename] = useState(layout);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -106,11 +109,12 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       SceneLoader.ImportMesh(
         "",
         "/models/",
-        `${modelFilename}.glb`,
+        `${modelFileName}.glb`,
         scene,
         (meshes) => {
           if (meshes.length > 0) {
             const model = meshes[0] as AbstractMesh;
+
             model.position = new Vector3(900, 0, -300);
 
             const floorTexture = new Texture(
@@ -140,7 +144,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
 
             setCurrentModel(model);
 
-            console.log(modelFilename);
+            console.log(modelFileName);
           }
         },
         null,
@@ -149,7 +153,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
         }
       );
     }
-  }, [scene, modelFilename]);
+  }, [scene, modelFileName]);
 
   useEffect(() => {
     if (scene && currentModel && colorTexture) {
@@ -238,19 +242,33 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
 
   const handleToggleDoor = () => {
     console.log(isOpen);
+    const closedFileName = `C${modelFileName}`; // Keep the model number part intact
     if (isOpen) {
       // If currently open, close the door by prefixing 'C' to the filename
-      const newFilename = `C${modelFilename}`; // Keep the model number part intact
-      setModelFilename(newFilename);
-      console.log(newFilename);
+      setModelFileName(closedFileName);
     } else {
       // If currently closed, open the door
-      setModelFilename(layout);
-      console.log(layout);
+      if (modelFileName[0] == "C") {
+        setModelFileName(modelFileName.substring(1));
+      } else {
+        setModelFileName(modelFileName);
+      }
     }
 
     setIsOpen(!isOpen); // Toggle the state
   };
+
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     setModelFileName("C" + modelFileName);
+  //   } else if (!isOpen) {
+  //     if (modelFileName[0] == "C") {
+  //       setModelFileName(modelFileName.substring(1));
+  //     } else {
+  //       setModelFileName(modelFileName);
+  //     }
+  //   }
+  // }, [isOpen]);
 
   return (
     <div className="relative w-full h-full">
@@ -258,7 +276,10 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       <div className="absolute top-4 right-4 flex">
         <button
           className="px-3 py-1 text-white font-bold rounded-lg bg-green-500 hover:bg-green-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
-          onClick={handleToggleDoor}
+          onClick={() => {
+            setIsOpen(!isOpen);
+            handleToggleDoor();
+          }}
         >
           {isOpen ? "Close Door" : "Open Door"}
         </button>
