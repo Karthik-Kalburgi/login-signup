@@ -10,12 +10,19 @@ import Signup from "@/pages/Auth/Signup";
 import { useUser } from "@/states/UserState";
 import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, clearUser } = useUser();
 
   return (
-    <nav className="flex items-center justify-between p-2 border-b border-border bg-background">
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+      className="flex items-center justify-between p-2 border-b border-border bg-background"
+    >
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2 ml-3">
           <img
@@ -79,7 +86,7 @@ const Navbar = () => {
           Call For Expert
         </button>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

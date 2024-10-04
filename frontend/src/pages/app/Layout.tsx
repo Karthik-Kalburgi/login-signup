@@ -8,18 +8,24 @@ import Left from "./Cupboard/Left"; // Openable door components
 import Middle from "./Cupboard/Middle";
 import Right from "./Cupboard/Right"; // Openable right component
 import { useModel } from "@/states/ModelState";
+import { ShoppingCart } from "lucide-react";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useUser } from "@/states/UserState";
 
 const Layout: React.FC = () => {
-  const INITIAL_ROOM_WIDTH = 2400;
-  const INITIAL_LAYOUT = "OL1650";
+  const INITIAL_ROOM_WIDTH = 2600;
+
   const INITIAL_COLOR = "";
 
-  const { modelFileName, setModelFileName } = useModel();
+  const { setModelFileName, modelFileName } = useModel();
+  const { user } = useUser();
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
   const [roomheight, setRoomHeight] = useState<number>(2900);
   const [aroomheight, asetRoomHeight] = useState<number>(2900);
-  // const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
+
   const [selectedColor, setSelectedColor] = useState<string>(INITIAL_COLOR);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentColorSet, setCurrentColorSet] = useState<"lam" | "pu">("lam");
@@ -30,6 +36,8 @@ const Layout: React.FC = () => {
   const [selectedLayoutPosition, setSelectedLayoutPosition] = useState<
     string | null
   >(null);
+
+  const { toast } = useToast();
 
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
@@ -66,25 +74,71 @@ const Layout: React.FC = () => {
 
   const colors = colorOptions[currentColorSet] || [];
 
+  // Image Upload Pending
+  const handleCheckout = async () => {
+    if (!user._id) {
+      toast({
+        title: `Checkout Failed`,
+        description: "Try Logging in before checking out",
+        variant: "destructive",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return;
+    }
+    try {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${API_URL}/api/wardrobe/save`, {
+        userId: user._id,
+        roomWidth,
+        model: modelFileName,
+        material: selectedColor,
+      });
+      if (res.data.error) {
+        toast({
+          title: `${res.data.message}`,
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        return;
+      }
+
+      toast({
+        title: `Checkout Saved!`,
+        description: `Our Team will contact you shortly!`,
+      });
+    } catch (error: any) {
+      console.log("CHECKOUT_ERROR", error.message);
+    }
+  };
+
   const Menu: React.FC = () => (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800">Customize Room</h2>
-      <div className="flex flex-col space-y-2">
-        {[
-          { name: "Room Width", option: "roomWidth" },
-          { name: "Layout", option: "layout" },
-          { name: "Object Height", option: "roomheight" },
-          { name: "Color", option: "color" },
-        ].map((menuItem) => (
-          <h3
-            key={menuItem.name}
-            className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
-            onClick={() => setActiveSection(menuItem.option)}
-          >
-            {menuItem.name}
-          </h3>
-        ))}
+    <div className=" flex flex-col justify-between h-full items-center">
+      <div className="space-y-4 w-full">
+        <h2 className="text-2xl font-bold text-gray-800">Customize Room</h2>
+        <div className="flex flex-col space-y-2">
+          {[
+            { name: "Room Width", option: "roomWidth" },
+            { name: "Layout", option: "layout" },
+            { name: "Object Height", option: "roomheight" },
+            { name: "Color", option: "color" },
+          ].map((menuItem) => (
+            <h3
+              key={menuItem.name}
+              className="text-xl font-semibold cursor-pointer bg-gray-200 p-4 rounded-lg text-gray-700 hover:bg-gray-300 transition"
+              onClick={() => setActiveSection(menuItem.option)}
+            >
+              {menuItem.name}
+            </h3>
+          ))}
+        </div>
       </div>
+      <button
+        onClick={handleCheckout}
+        className="text-xl font-semibold cursor-pointer bg-green-400 p-4 rounded-lg text-gray-700 hover:bg-green-300 transition flex justify-between items-center w-[80%]"
+      >
+        <p>Checkout</p>
+        <ShoppingCart />
+      </button>
     </div>
   );
 
@@ -92,7 +146,7 @@ const Layout: React.FC = () => {
     <div className="space-y-4">
       <h3 className="text-xl font-semibold mb-3">Select Room Width</h3>
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-300 flex flex-wrap gap-4">
-        {[2400, 3000, 3600].map((width) => (
+        {[2600, 3000, 3600, 4200].map((width) => (
           <button
             key={width}
             onClick={() => handleRoomWidthChange(width)}
@@ -102,7 +156,7 @@ const Layout: React.FC = () => {
                 : "bg-gray-200 text-gray-800"
             } hover:bg-blue-600`}
           >
-            {width / 300} ft
+            {Math.round(width / 300)} ft
           </button>
         ))}
       </div>
@@ -274,6 +328,7 @@ const Layout: React.FC = () => {
           roomWidth={roomWidth}
           height={roomheight}
           colorTexture={selectedColor}
+          layoutPosition={layoutPosition}
         />
       </div>
       <div className="w-full md:w-1/3 p-6 bg-white shadow-md rounded-lg flex flex-col space-y-6">

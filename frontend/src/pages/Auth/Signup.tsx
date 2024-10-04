@@ -61,8 +61,11 @@ function Signup() {
 
     // Handle form submission
     console.table(formValues);
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const res = await axios.post(`/api/user/register`, { ...formValues });
+    const res = await axios.post(`${API_URL}/api/user/register`, {
+      ...formValues,
+    });
     if (res.data.error) {
       toast({
         title: `${res.data.message}`,

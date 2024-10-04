@@ -11,7 +11,7 @@ interface UserState {
 export const useModel = create<UserState>()(
   persist(
     (set) => ({
-      modelFileName: "OL1650",
+      modelFileName: "OL1700",
 
       setModelFileName: (value) => {
         set({ modelFileName: value });

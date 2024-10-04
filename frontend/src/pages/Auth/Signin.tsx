@@ -47,8 +47,12 @@ function Signin() {
     e.preventDefault();
 
     // Handle form submission
+    const API_URL = import.meta.env.VITE_API_URL;
+
     console.table(formValues);
-    const res = await axios.post(`/api/user/login`, { ...formValues });
+    const res = await axios.post(`${API_URL}/api/user/login`, {
+      ...formValues,
+    });
     if (res.data.error) {
       toast({
         title: `${res.data.message}`,
