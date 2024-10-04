@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface LeftProps {
-  onLayoutSelect: (modelNumber: number) => void;
+  onLayoutSelect: (modelNumber: string) => void; // Change type to string
 }
 
 const Left: React.FC<LeftProps> = ({ onLayoutSelect }) => {
@@ -10,24 +10,22 @@ const Left: React.FC<LeftProps> = ({ onLayoutSelect }) => {
 
   const handleButtonClick = (size: number) => {
     setSelectedSize(size); // Update selected size
-    onLayoutSelect(size + 10000); // Call the provided function
-    console.log(size);
+    onLayoutSelect(`OL${size}`); // Pass size in the format OL<number>
   };
 
   return (
     <div className="flex flex-col items-center">
-      {/* Make the image smaller */}
       <img
         src="/img/L2400.png"
         alt="Large Image"
-        className="w-64 h-auto mb-6" // Adjust the width to make the image smaller
-        onClick={() => onLayoutSelect(2400 + 10000)} // Pass 2400 as a number
+        className="w-64 h-auto mb-6"
+        onClick={() => onLayoutSelect(`OL${2400}`)} // Pass 2400 as OL2400
       />
       <div className="grid grid-cols-3 gap-4">
         {sizes.map((size) => (
           <button
             key={size}
-            onClick={() => handleButtonClick(size)} // Pass size directly as a number
+            onClick={() => handleButtonClick(size)} // Pass size in OL format
             className={`p-3 rounded-lg border transition duration-300 ease-in-out ${
               selectedSize === size
                 ? "bg-blue-500 text-white"

@@ -13,6 +13,7 @@ import {
   Texture,
   Color3,
   PointLight,
+  PBRMaterial,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
@@ -33,7 +34,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   const [scene, setScene] = useState<Scene | null>(null);
   const [currentModel, setCurrentModel] = useState<AbstractMesh | null>(null);
   const [modelFilename, setModelFilename] = useState(layout);
-  const [isOpen, setIsOpen] = useState(true); // State to track if the door is open
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -42,7 +43,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       const newScene = new Scene(engine);
 
       newScene.clearColor = new Color4(0.9, 0.9, 0.9, 1.0);
-      console.log(colorTexture);
 
       const camera = new ArcRotateCamera(
         "camera",
@@ -112,6 +112,32 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
           if (meshes.length > 0) {
             const model = meshes[0] as AbstractMesh;
             model.position = new Vector3(900, 0, -300);
+
+            const floorTexture = new Texture(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ2OBtCyO9PKGxZtLENIe09f3kBsxPZezjSA&s",
+              scene
+            );
+
+            model.getChildMeshes().forEach((mesh) => {
+              if (mesh.material) {
+                if (mesh.material instanceof StandardMaterial) {
+                  const stdMaterial = mesh.material as StandardMaterial;
+                  stdMaterial.diffuseTexture = floorTexture.clone();
+                  stdMaterial.diffuseTexture.hasAlpha = true;
+                  stdMaterial.useAlphaFromDiffuseTexture = true;
+                  stdMaterial.specularColor = new Color3(0, 0, 0); // No specular highlights
+                  stdMaterial.emissiveColor = new Color3(1, 1, 1); // Slightly illuminated
+                } else if (mesh.material instanceof PBRMaterial) {
+                  const pbrMaterial = mesh.material as PBRMaterial;
+                  pbrMaterial.albedoTexture = floorTexture.clone();
+                  pbrMaterial.albedoTexture.hasAlpha = true;
+                  pbrMaterial.useAlphaFromAlbedoTexture = true;
+                  pbrMaterial.metallic = 0; // Non-metallic
+                  pbrMaterial.roughness = 1; // Rough surface
+                }
+              }
+            });
+
             setCurrentModel(model);
             console.log(modelFilename);
           }
@@ -123,6 +149,32 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       );
     }
   }, [scene, modelFilename]);
+
+  useEffect(() => {
+    if (scene && currentModel && colorTexture) {
+      const newTexture = new Texture(colorTexture, scene);
+
+      currentModel.getChildMeshes().forEach((mesh) => {
+        if (mesh.material) {
+          if (mesh.material instanceof StandardMaterial) {
+            const stdMaterial = mesh.material as StandardMaterial;
+            stdMaterial.diffuseTexture = newTexture.clone();
+            stdMaterial.diffuseTexture.hasAlpha = true;
+            stdMaterial.useAlphaFromDiffuseTexture = true;
+            stdMaterial.specularColor = new Color3(0, 0, 0); // No specular highlights
+            stdMaterial.emissiveColor = new Color3(1, 1, 1); // Slightly illuminated
+          } else if (mesh.material instanceof PBRMaterial) {
+            const pbrMaterial = mesh.material as PBRMaterial;
+            pbrMaterial.albedoTexture = newTexture.clone();
+            pbrMaterial.albedoTexture.hasAlpha = true;
+            pbrMaterial.useAlphaFromAlbedoTexture = true;
+            pbrMaterial.metallic = 0; // Non-metallic
+            pbrMaterial.roughness = 1; // Rough surface
+          }
+        }
+      });
+    }
+  }, [scene, currentModel, colorTexture]);
 
   const createRoom = (scene: Scene) => {
     const roomDepth = 2000;
@@ -184,8 +236,8 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
 
   const handleToggleDoor = () => {
     if (isOpen) {
-      // If currently open, close the door
-      const newFilename = (parseInt(modelFilename) + 10000).toString();
+      // If currently open, close the door by prefixing 'C' to the filename
+      const newFilename = `C${modelFilename}`; // Keep the model number part intact
       setModelFilename(newFilename);
       console.log(newFilename);
     } else {

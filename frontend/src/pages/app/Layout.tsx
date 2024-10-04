@@ -10,18 +10,19 @@ import Right from "./Cupboard/Right"; // Openable right component
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2400;
-  const INITIAL_LAYOUT = "11650";
+  const INITIAL_LAYOUT = "OL1650";
   const INITIAL_COLOR = "";
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
-  const [roomheight, setRoomHeight] = useState<number>(3000);
+  const [roomheight, setRoomHeight] = useState<number>(2900);
+  const [aroomheight, asetRoomHeight] = useState<number>(2900);
   const [layout, setLayout] = useState<string>(INITIAL_LAYOUT);
   const [selectedColor, setSelectedColor] = useState<string>(INITIAL_COLOR);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentColorSet, setCurrentColorSet] = useState<"lam" | "pu">("lam");
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [layoutPosition, setLayoutPosition] = useState<string | null>("left");
-  const [doorType, setDoorType] = useState<string | null>(null);
+
   const [selectedDoorType, setSelectedDoorType] = useState<string | null>(null);
   const [selectedLayoutPosition, setSelectedLayoutPosition] = useState<
     string | null
@@ -30,13 +31,18 @@ const Layout: React.FC = () => {
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
   };
-  console.log(doorType);
 
   const handleRoomHeightChange = (height: number) => {
-    setRoomHeight(height);
+    if (height === 2100) {
+      setRoomHeight(2900);
+      asetRoomHeight(2100);
+    } else if (height === 2400) {
+      setRoomHeight(2600);
+      asetRoomHeight(2400);
+    }
   };
 
-  const handleLayoutImageClick = (modelNumber: number) => {
+  const handleLayoutImageClick = (modelNumber: string) => {
     setLayout(`${modelNumber}`);
   };
 
@@ -63,7 +69,7 @@ const Layout: React.FC = () => {
         {[
           { name: "Room Width", option: "roomWidth" },
           { name: "Layout", option: "layout" },
-          { name: "Room Height", option: "roomheight" },
+          { name: "Object Height", option: "roomheight" },
           { name: "Color", option: "color" },
         ].map((menuItem) => (
           <h3
@@ -106,14 +112,14 @@ const Layout: React.FC = () => {
 
   const HeightMenu: React.FC = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold mb-3">Select Room Height</h3>
+      <h3 className="text-xl font-semibold mb-3">Select Object Height</h3>
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-300 flex flex-wrap gap-4">
         {[2100, 2400].map((height) => (
           <button
             key={height}
             onClick={() => handleRoomHeightChange(height)}
             className={`p-3 rounded-lg border transition duration-300 ease-in-out ${
-              roomheight === height
+              aroomheight === height
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-gray-800"
             } hover:bg-blue-600`}
@@ -137,7 +143,6 @@ const Layout: React.FC = () => {
       <div className="flex space-x-4 mb-4">
         <button
           onClick={() => {
-            setDoorType("openable");
             setSelectedDoorType("openable");
             setLayoutPosition("left"); // Optionally reset to left section
           }}
@@ -147,11 +152,10 @@ const Layout: React.FC = () => {
               : "bg-gray-200"
           }`}
         >
-          Openable Door
+          Sliding Door
         </button>
         <button
           onClick={() => {
-            setDoorType("sliding");
             setSelectedDoorType("sliding");
             setLayoutPosition("left"); // Optionally reset to left section
           }}
@@ -161,7 +165,7 @@ const Layout: React.FC = () => {
               : "bg-gray-200"
           }`}
         >
-          Sliding Door
+          Openable Door
         </button>
       </div>
       <div className="flex space-x-4 mb-4">

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 interface RightProps {
-  onLayoutSelect: (modelNumber: number) => void;
+  onLayoutSelect: (modelNumber: string) => void;
 }
 
-const Right: React.FC<RightProps> = ({}) => {
+const Right: React.FC<RightProps> = ({ onLayoutSelect }) => {
   const sizes = ["4_4_6", "4_6_6", "4_9", "6_6", "9_9", "12_6", "12_12"];
   const [selectedSize, setSelectedSize] = useState<string>("");
 
   const handleButtonClick = (size: string) => {
     setSelectedSize(size); // Update selected size
-    console.log(size);
+    onLayoutSelect(`SR${size}`); // Pass size in the format SL<number>
   };
 
   return (
