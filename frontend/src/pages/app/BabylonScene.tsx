@@ -14,6 +14,7 @@ import {
   Color3,
   PointLight,
   PBRMaterial,
+  Tools,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 import { useModel } from "@/states/ModelState";
@@ -97,6 +98,27 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
       };
     }
   }, [roomWidth, height]);
+  const handleScreenshot = () => {
+    if (scene && scene.activeCamera) {
+      Tools.CreateScreenshotUsingRenderTarget(
+        scene.getEngine(),
+        scene.activeCamera,
+        { width: 1920, height: 1080 },
+        (data) => {
+          const base64Image = data;
+          console.log("Screenshot saved as Base64:", base64Image);
+
+          // Create a download link
+          const link = document.createElement("a");
+          link.href = base64Image;
+          link.download = "screenshot.png";
+          link.click(); // Trigger the download
+
+          // Now the base64Image variable contains the base64 string
+        }
+      );
+    }
+  };
 
   useEffect(() => {
     if (scene) {
@@ -293,7 +315,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   return (
     <div className="relative w-full h-full">
       <canvas ref={canvasRef} className="w-full h-full" />
-      <div className="absolute top-4 right-4 flex">
+      <div className="absolute top-4 right-4 flex flex-col space-y-2">
         <button
           className="px-3 py-1 text-white font-bold rounded-lg bg-green-500 hover:bg-green-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
@@ -302,6 +324,12 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
           }}
         >
           {isOpen ? "Close Door" : "Open Door"}
+        </button>
+        <button
+          className="px-3 py-1 text-white font-bold rounded-lg bg-blue-500 hover:bg-blue-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+          onClick={handleScreenshot}
+        >
+          Capture Screenshot
         </button>
       </div>
     </div>
