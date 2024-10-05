@@ -40,6 +40,7 @@ const Layout: React.FC = () => {
     string | null
   >(null);
   const [image, setImage] = useState<string | null>("");
+  const [checkingOut, setCheckingOut] = useState<boolean>(false);
 
   const { toast } = useToast();
 
@@ -80,7 +81,9 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     console.log("Image to be sent ->", image);
-    handleCheckout();
+    if (checkingOut) {
+      handleCheckout();
+    }
   }, [image]);
   // Image Upload Pending
   const handleCheckout = async () => {
@@ -93,6 +96,7 @@ const Layout: React.FC = () => {
       });
       return;
     }
+
     try {
       if (image == "") {
         toast({ title: "No Image Sending" });
@@ -123,10 +127,13 @@ const Layout: React.FC = () => {
       });
     } catch (error: any) {
       console.log("CHECKOUT_ERROR", error.message);
+    } finally {
+      setCheckingOut(false);
     }
   };
 
   const handleScreenshot = () => {
+    setCheckingOut(true);
     if (scene && scene.activeCamera) {
       Tools.CreateScreenshotUsingRenderTarget(
         scene.getEngine(),
