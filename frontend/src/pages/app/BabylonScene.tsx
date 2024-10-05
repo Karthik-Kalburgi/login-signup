@@ -23,6 +23,8 @@ interface BabylonSceneProps {
   layoutPosition: string | null;
   height: number;
   colorTexture: string;
+  scene: Scene | null;
+  setScene: React.Dispatch<React.SetStateAction<Scene | null>>;
 }
 
 const BabylonScene: React.FC<BabylonSceneProps> = ({
@@ -30,11 +32,13 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   layoutPosition,
   height,
   colorTexture,
+  setScene,
+  scene,
 }) => {
   const { setModelFileName, modelFileName } = useModel();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [scene, setScene] = useState<Scene | null>(null);
+
   const [currentModel, setCurrentModel] = useState<AbstractMesh | null>(null);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -293,7 +297,7 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
   return (
     <div className="relative w-full h-full">
       <canvas ref={canvasRef} className="w-full h-full" />
-      <div className="absolute top-4 right-4 flex">
+      <div className="absolute top-4 right-4 flex flex-col space-y-2">
         <button
           className="px-3 py-1 text-white font-bold rounded-lg bg-green-500 hover:bg-green-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
@@ -302,6 +306,12 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
           }}
         >
           {isOpen ? "Close Door" : "Open Door"}
+        </button>
+        <button
+          className="px-3 py-1 text-white font-bold rounded-lg bg-blue-500 hover:bg-blue-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+          // onClick={handleScreenshot}
+        >
+          Capture Screenshot
         </button>
       </div>
     </div>

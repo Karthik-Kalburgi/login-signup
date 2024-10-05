@@ -2,11 +2,14 @@ import Wardrobe from "../models/Wardrobe.model.js";
 
 export const saveToCart = async (req, res) => {
   try {
-    console.log(req.body);
-    const { userId, roomWidth, model, material } = req.body;
+    // console.log(req.body);
+    const { userId, roomWidth, model, material, image } = req.body;
 
     // Find a Cart
     const checkCartExists = await Wardrobe.findOne({ userId });
+
+    const payloadSize = Buffer.byteLength(JSON.stringify(req.body));
+    console.log(`Payload size: ${payloadSize} bytes`);
 
     if (!checkCartExists) {
       console.log("Cart Doesnt Exist");
@@ -15,6 +18,7 @@ export const saveToCart = async (req, res) => {
         roomWidth,
         model,
         material,
+        image,
       });
       newCart.save();
       return res
@@ -28,6 +32,7 @@ export const saveToCart = async (req, res) => {
       roomWidth,
       model,
       material,
+      image,
     });
 
     res

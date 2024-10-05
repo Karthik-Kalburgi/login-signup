@@ -16,6 +16,9 @@ const wardrobeSchema = new mongoose.Schema(
     material: {
       type: String,
     },
+    image: {
+      type: String,
+    },
   },
   {
     timestamps: true,
