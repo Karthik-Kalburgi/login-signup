@@ -51,6 +51,7 @@ const Home = () => {
       </div>
       <div className="h-full flex-center flex-col gap-[80px] border-[1px] border-gray-400 md:col-span-1 md:py-0 py-10">
         <div className="text-[40px] font-bold">Wardrobe Lab</div>
+
         <Button
           variant="secondary"
           className="gap-2 bg-blue-950 text-white py-8 hover:text-black hover:bg-blue-900"

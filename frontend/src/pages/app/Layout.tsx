@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BabylonScene from "./BabylonScene";
 import { colorOptions } from "./colors";
 import SLeft from "./Cupboard/SLeft"; // Sliding door components
@@ -13,6 +13,7 @@ import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useUser } from "@/states/UserState";
+import { Scene, Tools } from "@babylonjs/core";
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2600;
@@ -21,6 +22,8 @@ const Layout: React.FC = () => {
 
   const { setModelFileName, modelFileName } = useModel();
   const { user } = useUser();
+
+  const [scene, setScene] = useState<Scene | null>(null);
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
   const [roomheight, setRoomHeight] = useState<number>(2900);
@@ -36,6 +39,7 @@ const Layout: React.FC = () => {
   const [selectedLayoutPosition, setSelectedLayoutPosition] = useState<
     string | null
   >(null);
+  const [image, setImage] = useState<string | null>("");
 
   const { toast } = useToast();
 
@@ -74,6 +78,10 @@ const Layout: React.FC = () => {
 
   const colors = colorOptions[currentColorSet] || [];
 
+  useEffect(() => {
+    console.log("Image to be sent ->", image);
+    handleCheckout();
+  }, [image]);
   // Image Upload Pending
   const handleCheckout = async () => {
     if (!user._id) {
@@ -86,12 +94,19 @@ const Layout: React.FC = () => {
       return;
     }
     try {
+      if (image == "") {
+        toast({ title: "No Image Sending" });
+        return;
+      }
+
       const API_URL = import.meta.env.VITE_API_URL;
+      console.log(API_URL);
       const res = await axios.post(`${API_URL}/api/wardrobe/save`, {
         userId: user._id,
         roomWidth,
         model: modelFileName,
         material: selectedColor,
+        image,
       });
       if (res.data.error) {
         toast({
@@ -108,6 +123,30 @@ const Layout: React.FC = () => {
       });
     } catch (error: any) {
       console.log("CHECKOUT_ERROR", error.message);
+    }
+  };
+
+  const handleScreenshot = () => {
+    if (scene && scene.activeCamera) {
+      Tools.CreateScreenshotUsingRenderTarget(
+        scene.getEngine(),
+        scene.activeCamera,
+        { width: 1920, height: 1080 },
+        (data) => {
+          const base64Image = data;
+
+          setImage(base64Image);
+
+          // // Create a download link
+          // const link = document.createElement("a");
+          // link.href = base64Image;
+
+          // link.download = "screenshot.png";
+          // link.click(); // Trigger the download
+
+          // Now the base64Image variable contains the base64 string
+        }
+      );
     }
   };
 
@@ -133,7 +172,7 @@ const Layout: React.FC = () => {
         </div>
       </div>
       <button
-        onClick={handleCheckout}
+        onClick={handleScreenshot}
         className="text-xl font-semibold cursor-pointer bg-green-400 p-4 rounded-lg text-gray-700 hover:bg-green-300 transition flex justify-between items-center w-[80%]"
       >
         <p>Checkout</p>
@@ -329,6 +368,8 @@ const Layout: React.FC = () => {
           height={roomheight}
           colorTexture={selectedColor}
           layoutPosition={layoutPosition}
+          scene={scene}
+          setScene={setScene}
         />
       </div>
       <div className="w-full md:w-1/3 p-6 bg-white shadow-md rounded-lg flex flex-col space-y-6">
