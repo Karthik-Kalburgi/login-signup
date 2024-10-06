@@ -80,7 +80,6 @@ const Layout: React.FC = () => {
   const colors = colorOptions[currentColorSet] || [];
 
   useEffect(() => {
-    console.log("Image to be sent ->", image);
     if (checkingOut) {
       handleCheckout();
     }
