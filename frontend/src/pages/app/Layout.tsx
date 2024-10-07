@@ -311,6 +311,10 @@ const Layout: React.FC = () => {
     </div>
   );
 
+  const closeCheckout = () => {
+    setCheckingOut(false);
+  };
+
   return (
     <div className="flex flex-col md:flex-row h-[92vh]">
       <div className="flex-1 p-4 bg-gray-100 overflow-hidden">
@@ -368,6 +372,7 @@ const Layout: React.FC = () => {
           material={selectedColor}
           image={image}
           height={roomheight}
+          onClose={closeCheckout}
         />
       )}
     </div>
