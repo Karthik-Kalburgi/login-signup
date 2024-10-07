@@ -3,7 +3,7 @@ import Wardrobe from "../models/Wardrobe.model.js";
 export const saveToCart = async (req, res) => {
   try {
     // console.log(req.body);
-    const { userId, roomWidth, model, material, image } = req.body;
+    const { userId, roomWidth, model, material, image, height } = req.body;
 
     // Find a Cart
     const checkCartExists = await Wardrobe.findOne({ userId });
@@ -19,6 +19,7 @@ export const saveToCart = async (req, res) => {
         model,
         material,
         image,
+        height,
       });
       newCart.save();
       return res
