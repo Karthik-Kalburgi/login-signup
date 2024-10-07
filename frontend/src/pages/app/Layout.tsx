@@ -16,7 +16,7 @@ import CheckoutModal from "./CheckoutModal";
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2600;
 
-  const INITIAL_COLOR = "";
+  const INITIAL_COLOR = "/colours/lam/American Walnut SF.png";
 
   const { setModelFileName, modelFileName } = useModel();
 

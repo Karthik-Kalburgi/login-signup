@@ -3,7 +3,18 @@ import Wardrobe from "../models/Wardrobe.model.js";
 export const saveToCart = async (req, res) => {
   try {
     // console.log(req.body);
-    const { userId, roomWidth, model, material, image, height } = req.body;
+    const {
+      userId,
+      roomWidth,
+      colorPrice,
+      displayModel,
+      material,
+      displayColor,
+      height,
+      heightPrice,
+      image,
+      totalPrice,
+    } = req.body;
 
     // Find a Cart
     const checkCartExists = await Wardrobe.findOne({ userId });
@@ -16,10 +27,13 @@ export const saveToCart = async (req, res) => {
       const newCart = await Wardrobe.create({
         userId,
         roomWidth,
-        model,
+        model: displayModel,
         material,
+        materialPrice: colorPrice,
         image,
         height,
+        heightPrice,
+        totalPrice,
       });
       newCart.save();
       return res
@@ -30,10 +44,15 @@ export const saveToCart = async (req, res) => {
     // Update Cart if it Exists
     console.log("Cart Updating");
     const updateCard = await Wardrobe.findOneAndUpdate({
+      userId,
       roomWidth,
-      model,
+      model: displayModel,
       material,
+      materialPrice: colorPrice,
       image,
+      height,
+      heightPrice,
+      totalPrice,
     });
 
     res
