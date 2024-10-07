@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
@@ -25,6 +25,15 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 }) => {
   const { toast } = useToast();
   const { user } = useUser();
+
+  const [form, setForm] = useState({
+    displayModel: "",
+    displayColor: "",
+    heightPrice: 0,
+    cupboardPrice: 0,
+    colorPrice: 0,
+    totalPrice: 0,
+  });
 
   const getDisplayModel = (model: string) => {
     const firstChar = model.charAt(0);
@@ -83,13 +92,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
       });
       return;
     }
-
+    console.log(form);
     try {
       if (!image) {
         toast({ title: "No Image Available" });
         return;
       }
 
+      return;
       const API_URL = import.meta.env.VITE_API_URL;
       const res = await axios.post(`${API_URL}/api/wardrobe/save`, {
         userId: user._id,
@@ -124,13 +134,24 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     }
   };
 
-  const displayModel = getDisplayModel(model);
-  const displayColor = formatColor(material);
+  useEffect(() => {
+    const displayModel = getDisplayModel(model);
+    const displayColor = formatColor(material);
 
-  const cupboardPrice = 15000;
-  const colorPrice = 3000;
-  const heightPrice = Math.round(height * 5); // ₹5 per cm
-  const totalPrice = cupboardPrice + colorPrice + heightPrice;
+    const cupboardPrice = 15000;
+    const colorPrice = 3000;
+    const heightPrice = Math.round(height * 5); // ₹5 per cm
+    const totalPrice = cupboardPrice + colorPrice + heightPrice;
+
+    setForm({
+      displayModel,
+      displayColor,
+      cupboardPrice,
+      colorPrice,
+      heightPrice,
+      totalPrice,
+    });
+  }, [model, material, height]); // Run effect when these values change
 
   const OrderItem = ({
     label,
@@ -182,21 +203,25 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
         <div className="space-y-1 mb-3">
           <OrderItem
             label="Chosen Cupboard"
-            value={displayModel}
-            price={cupboardPrice}
+            value={form.displayModel}
+            price={form.cupboardPrice}
           />
-          <OrderItem label="Colour" value={displayColor} price={colorPrice} />
+          <OrderItem
+            label="Colour"
+            value={form.displayColor}
+            price={form.colorPrice}
+          />
           <OrderItem
             label="Cupboard Height"
             value={`${height} cm`}
-            price={heightPrice}
+            price={form.heightPrice}
           />
         </div>
 
         <div className="flex justify-between items-center mb-4 pt-2 border-t border-gray-200">
           <span className="text-lg font-bold text-gray-800">Total:</span>
           <span className="text-xl font-bold text-green-600">
-            ₹{totalPrice.toLocaleString("en-IN")}
+            ₹{form.totalPrice.toLocaleString("en-IN")}
           </span>
         </div>
 
