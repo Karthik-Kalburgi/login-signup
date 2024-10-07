@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BabylonScene from "./BabylonScene";
 import { colorOptions } from "./colors";
 import SLeft from "./Cupboard/SLeft"; // Sliding door components
@@ -9,11 +9,9 @@ import Middle from "./Cupboard/Middle";
 import Right from "./Cupboard/Right"; // Openable right component
 import { useModel } from "@/states/ModelState";
 import { ShoppingCart } from "lucide-react";
-import axios from "axios";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
-import { useUser } from "@/states/UserState";
+
 import { Scene, Tools } from "@babylonjs/core";
+import CheckoutModal from "./CheckoutModal";
 
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2600;
@@ -21,11 +19,11 @@ const Layout: React.FC = () => {
   const INITIAL_COLOR = "";
 
   const { setModelFileName, modelFileName } = useModel();
-  const { user } = useUser();
 
   const [scene, setScene] = useState<Scene | null>(null);
 
   const [roomWidth, setRoomWidth] = useState<number>(INITIAL_ROOM_WIDTH);
+
   const [roomheight, setRoomHeight] = useState<number>(2900);
   const [aroomheight, asetRoomHeight] = useState<number>(2900);
 
@@ -40,9 +38,8 @@ const Layout: React.FC = () => {
     string | null
   >(null);
   const [image, setImage] = useState<string | null>("");
-  const [checkingOut, setCheckingOut] = useState<boolean>(false);
 
-  const { toast } = useToast();
+  const [checkingOut, setCheckingOut] = useState<boolean>(false);
 
   const handleRoomWidthChange = (width: number) => {
     setRoomWidth(width);
@@ -78,59 +75,6 @@ const Layout: React.FC = () => {
   };
 
   const colors = colorOptions[currentColorSet] || [];
-
-  useEffect(() => {
-    console.log("Image to be sent ->", image);
-    if (checkingOut) {
-      handleCheckout();
-    }
-  }, [image]);
-  // Image Upload Pending
-  const handleCheckout = async () => {
-    if (!user._id) {
-      toast({
-        title: `Checkout Failed`,
-        description: "Try Logging in before checking out",
-        variant: "destructive",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
-      return;
-    }
-
-    try {
-      if (image == "") {
-        toast({ title: "No Image Sending" });
-        return;
-      }
-
-      const API_URL = import.meta.env.VITE_API_URL;
-      console.log(API_URL);
-      const res = await axios.post(`${API_URL}/api/wardrobe/save`, {
-        userId: user._id,
-        roomWidth,
-        model: modelFileName,
-        material: selectedColor,
-        image,
-      });
-      if (res.data.error) {
-        toast({
-          title: `${res.data.message}`,
-          description: "There was a problem with your request.",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-        return;
-      }
-
-      toast({
-        title: `Checkout Saved!`,
-        description: `Our Team will contact you shortly!`,
-      });
-    } catch (error: any) {
-      console.log("CHECKOUT_ERROR", error.message);
-    } finally {
-      setCheckingOut(false);
-    }
-  };
 
   const handleScreenshot = () => {
     setCheckingOut(true);
@@ -415,6 +359,16 @@ const Layout: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {checkingOut && (
+        <CheckoutModal
+          roomWidth={roomWidth}
+          model={modelFileName}
+          material={selectedColor}
+          image={image}
+          height={roomheight}
+        />
       )}
     </div>
   );
