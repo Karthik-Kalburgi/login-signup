@@ -32,8 +32,7 @@ function App() {
   const hideFooter = location.pathname === "/emulator";
 
   return (
-    <div className="min-h-screen md:max-h-screen justify-between flex flex-col">
-      {/* Conditionally render the Navbar */}
+    <div className="min-h-screen max-h-full md:max-h-screen md:justify-between flex flex-col">
       <Navbar />
       <Main />
       {!hideFooter && <Footer />}
