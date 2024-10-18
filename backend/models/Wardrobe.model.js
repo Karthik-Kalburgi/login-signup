@@ -13,13 +13,25 @@ const wardrobeSchema = new mongoose.Schema(
     model: {
       type: String,
     },
+    modelPrice: {
+      type: Number,
+    },
     material: {
       type: String,
+    },
+    materialPrice: {
+      type: Number,
     },
     image: {
       type: String,
     },
     height: {
+      type: Number,
+    },
+    heightPrice: {
+      type: Number,
+    },
+    totalPrice: {
       type: Number,
     },
   },

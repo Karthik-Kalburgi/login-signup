@@ -118,6 +118,34 @@ export const ImagesSlider = ({
     },
   };
 
+  const descriptionVariants = {
+    initial: {
+      opacity: 0,
+      y: direction === "up" ? 20 : -20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exitUp: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exitDown: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
   const areImagesLoaded = loadedImages.length > 0;
 
   return (
@@ -151,32 +179,22 @@ export const ImagesSlider = ({
         </AnimatePresence>
       )}
 
-      {areImagesLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center z-50">
-          <AnimatePresence>
-            {/* <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-white text-center p-4 bg-black/50 rounded"
-            >
-              {descriptions[currentIndex]}
-            </motion.div> */}
+      <AnimatePresence>
+        {areImagesLoaded && descriptions[currentIndex] && (
+          <div className="absolute inset-0 flex items-center justify-center z-50">
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              variants={slideVariants}
-              className="font-extrabold text-2xl text-center bg-clip-text text-transparent bg-gradient-to-br from-neutral-50 to-neutral-400 px-10 select-none"
+              key={currentIndex}
+              initial="initial"
+              animate="visible"
+              exit={direction === "up" ? "exitUp" : "exitDown"}
+              variants={descriptionVariants}
+              className="font-extrabold text-lg md:text-2xl text-center bg-clip-text text-transparent bg-gradient-to-br from-neutral-50 to-neutral-400 px-10 select-none"
             >
               {descriptions[currentIndex]}
             </motion.p>
-          </AnimatePresence>
-        </div>
-      )}
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

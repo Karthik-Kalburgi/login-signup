@@ -21,8 +21,8 @@ const Home = () => {
   ];
 
   return (
-    <div className="h-full grid md:grid-cols-3 px-5 py-3 md:py-0 flex-1">
-      <div className="h-full md:col-span-2">
+    <div className="h-full grid grid-cols-1 md:grid-cols-3 px-5 py-3 md:py-0 flex-1">
+      <div className="h-[55vh] md:h-full md:col-span-2">
         <ImagesSlider descriptions={descriptions} className="" images={images}>
           <div></div>
           {/* <motion.div

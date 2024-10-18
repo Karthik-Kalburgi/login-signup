@@ -16,7 +16,7 @@ import CheckoutModal from "./CheckoutModal";
 const Layout: React.FC = () => {
   const INITIAL_ROOM_WIDTH = 2600;
 
-  const INITIAL_COLOR = "";
+  const INITIAL_COLOR = "/colours/lam/American Walnut SF.png";
 
   const { setModelFileName, modelFileName } = useModel();
 
@@ -311,6 +311,10 @@ const Layout: React.FC = () => {
     </div>
   );
 
+  const closeCheckout = () => {
+    setCheckingOut(false);
+  };
+
   return (
     <div className="flex flex-col md:flex-row h-[92vh]">
       <div className="flex-1 p-4 bg-gray-100 overflow-hidden">
@@ -368,6 +372,7 @@ const Layout: React.FC = () => {
           material={selectedColor}
           image={image}
           height={roomheight}
+          onClose={closeCheckout}
         />
       )}
     </div>

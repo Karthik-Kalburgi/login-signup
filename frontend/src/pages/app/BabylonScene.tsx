@@ -307,12 +307,6 @@ const BabylonScene: React.FC<BabylonSceneProps> = ({
         >
           {isOpen ? "Close Door" : "Open Door"}
         </button>
-        <button
-          className="px-3 py-1 text-white font-bold rounded-lg bg-blue-500 hover:bg-blue-600 shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
-          // onClick={handleScreenshot}
-        >
-          Capture Screenshot
-        </button>
       </div>
     </div>
   );
